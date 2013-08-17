@@ -4,13 +4,13 @@ threex.skymap is a three.js extension to use the use of skymaps.
 Additionnaly it provides samples of cubemaps taken in three.js examples.
 
 Here is the basic example 
-[live](http://jeromeetienne.github.io/threex/src/threex.skymap/examples/basic.html)
+[live](http://jeromeetienne.github.io/threex.skymap/examples/basic.html)
  and its 
-[source](https://github.com/jeromeetienne/threex/blob/master/src/threex.skymap/examples/basic.html).
+[source](https://github.com/jeromeetienne/threex.skymap/blob/master/examples/basic.html).
 Here is the example with require.js
-[live](http://jeromeetienne.github.io/threex/src/threex.skymap/examples/requirejs.html)
+[live](http://jeromeetienne.github.io/threex.skymap/examples/requirejs.html)
  and its 
-[source](https://github.com/jeromeetienne/threex/blob/master/src/threex.skymap/examples/requirejs.html).
+[source](https://github.com/jeromeetienne/threex.skymap/blob/master/examples/requirejs.html).
 
 
 How To Install It
