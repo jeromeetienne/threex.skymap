@@ -12,7 +12,6 @@ Here is the example with require.js
  and its 
 [source](https://github.com/jeromeetienne/threex.skymap/blob/master/examples/requirejs.html).
 
-
 How To Install It
 =================
 
@@ -37,6 +36,12 @@ For Skymap with a *well known urls*
 ```javascript
 var mesh	= THREEx.createSkymap('mars')
 scene.add( mesh )
+```
+
+Here is the list of well known urls, "bridge2", "escher", "park2", "park3med", "pisa", "skybox", "swedishroyalcastle", "mars". or just do this line in jsconsole.
+
+```javascript
+console.log(Object.keys(THREEx.TextureCube.WellKnownUrls));
 ```
 
 For Skymap with your own skymap.
