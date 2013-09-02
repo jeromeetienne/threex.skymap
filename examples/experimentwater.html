@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<script src='vendor/three.js/build/three.js'></script>
+<script src='../threex.texturecube.js'></script>
+<script src='../threex.skymap.js'></script>
+<body style='margin: 0px; background-color: #bbbbbb; overflow: hidden;'><script>
+	var renderer	= new THREE.WebGLRenderer();
+	renderer.setSize( window.innerWidth, window.innerHeight );
+	document.body.appendChild( renderer.domElement );
+
+	var onRenderFcts= [];
+	var scene	= new THREE.Scene();
+	var camera	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 1000);
+	camera.position.z = 3;
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		mars								//
+	//////////////////////////////////////////////////////////////////////////////////
+	
+		
+	// var mesh	= THREEx.createSkymap('skybox')
+	// scene.add( mesh );
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	//		comment								//
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	// add a ambient light
+	var light	= new THREE.AmbientLight( 0x202020 )
+	scene.add( light )
+	// add a light in front
+	var light	= new THREE.DirectionalLight('white', 1)
+	light.position.set(0.5, 3.5, 2)
+	scene.add( light )
+	// add a light behind
+	var light	= new THREE.DirectionalLight('white', 0.75)
+	light.position.set(-0.5, -0.5, -2)
+	scene.add( light )
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	//		comment								//
+	//////////////////////////////////////////////////////////////////////////////////
+	
+;(function(){
+	for(var i = 0; i < 10; i++ ){
+		;(function(){
+			// var geometry	= new THREE.PlaneGeometry( 10, 10);
+			// var geometry	= new THREE.CubeGeometry( 1, 1, 1);
+			var geometry	= new THREE.CylinderGeometry(0.5, 0.5, 3)
+			var material	= new THREE.MeshPhongMaterial();
+			var mesh	= new THREE.Mesh( geometry, material );
+			mesh.position.x	= (Math.random()-0.5)*8
+			mesh.position.z	= (Math.random()-0.5)*5 - 3
+			// mesh.lookAt(new THREE.Vector3(0,-1,0))
+			scene.add( mesh );
+		})()
+	}
+})()
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		add an object and make it move					//
+	//////////////////////////////////////////////////////////////////////////////////
+
+	// add a reflexion
+	var geometry	= new THREE.PlaneGeometry(40, 40, 25, 25);
+	// var geometry	= new THREE.CubeGeometry( 1, 1, 1);
+	var material	= new THREE.MeshPhongMaterial();
+	material.map		= THREE.ImageUtils.loadTexture('images/water.jpg')
+	material.color.set('cyan')
+	material.envMap		= THREEx.createTextureCube('mars')
+	material.transparent	= true
+	material.depthWrite	= false
+	material.opacity	= 0.5
+	material.side		= THREE.DoubleSide
+	var mesh	= new THREE.Mesh( geometry, material );
+	mesh.lookAt(new THREE.Vector3(0,1,0))
+	scene.add( mesh );
+	
+	onRenderFcts.push(function(delta, now){
+		var verticesPerX	= 25 + 1
+		var angleOffset		= now * Math.PI * 2 * 0.5
+		geometry.vertices.forEach(function(vertex, vertexIdx){
+			var x	= vertexIdx % verticesPerX
+			var y	= Math.floor(vertexIdx / verticesPerX)
+			var angle	= angleOffset + x/10 + y/3.05;
+			vertex.z	= Math.cos(angle) * 0.5
+		})
+		geometry.verticesNeedUpdate = true
+		
+		geometry.computeVertexNormals()
+		geometry.computeFaceNormals()
+		geometry.normalsNeedUpdate = true
+	})
+	
+	
+		
+	//////////////////////////////////////////////////////////////////////////////////
+	//		Camera Controls							//
+	//////////////////////////////////////////////////////////////////////////////////
+	var mouse	= {x : 0, y : 0}
+	document.addEventListener('mousemove', function(event){
+		mouse.x	= (event.clientX / window.innerWidth ) - 0.5
+		mouse.y	= (event.clientY / window.innerHeight) - 0.5
+	}, false)
+	onRenderFcts.push(function(delta, now){
+		camera.position.x += (mouse.x*5 - camera.position.x) * (delta*3)
+		camera.position.y += (mouse.y*5 - camera.position.y + 2) * (delta*3)
+		camera.lookAt( scene.position )
+	})
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	//		render the scene						//
+	//////////////////////////////////////////////////////////////////////////////////
+	onRenderFcts.push(function(){
+		renderer.render( scene, camera );		
+	})
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	//		loop runner							//
+	//////////////////////////////////////////////////////////////////////////////////
+	var lastTimeMsec= null
+	requestAnimationFrame(function animate(nowMsec){
+		// keep looping
+		requestAnimationFrame( animate );
+		// measure time
+		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
+		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
+		lastTimeMsec	= nowMsec
+		// call each update function
+		onRenderFcts.forEach(function(onRenderFct){
+			onRenderFct(deltaMsec/1000, nowMsec/1000)
+		})
+	})
+</script></body>

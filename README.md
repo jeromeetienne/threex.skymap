@@ -3,6 +3,10 @@ threex.skymap
 threex.skymap is a three.js extension to use the use of skymaps.
 Additionnaly it provides samples of cubemaps taken in three.js examples.
 
+You can find more examples of texture cubes [here](http://www.humus.name/index.php?page=Textures&&start=0)
+
+Show, Don't Tell
+================
 Here is the basic example 
 [live](http://jeromeetienne.github.io/threex.skymap/examples/basic.html)
  and its 
