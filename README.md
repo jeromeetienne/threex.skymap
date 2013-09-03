@@ -1,19 +1,19 @@
 threex.skymap
 =============
 threex.skymap is a three.js extension to use the use of skymaps.
-Additionnaly it provides samples of cubemaps taken in three.js examples.
+Additionnaly it provides skymaps of cubemaps taken in three.js examples.
 You can find more examples of texture cubes [here](http://www.humus.name/index.php?page=Textures&&start=0)
 
 Show, Don't Tell
 ================
-* [examples/basic.html](http://jeromeetienne.github.io/threex.sample/examples/basic.html)
-\[[view source](https://github.com/jeromeetienne/threex.sample/blob/master/examples/basic.html)\] :
+* [examples/basic.html](http://jeromeetienne.github.io/threex.skymap/examples/basic.html)
+\[[view source](https://github.com/jeromeetienne/threex.skymap/blob/master/examples/basic.html)\] :
 It shows a basic usage with reflection and skybox.
-* [examples/requirejs.html](http://jeromeetienne.github.io/threex.sample/examples/requirejs.html)
-\[[view source](https://github.com/jeromeetienne/threex.sample/blob/master/examples/requirejs.html)\] :
+* [examples/requirejs.html](http://jeromeetienne.github.io/threex.skymap/examples/requirejs.html)
+\[[view source](https://github.com/jeromeetienne/threex.skymap/blob/master/examples/requirejs.html)\] :
 It shows a basic usage with reflection and skybox thru require.js
-* [examples/experimentwater.html](http://jeromeetienne.github.io/threex.sample/examples/experimentwater.html)
-\[[view source](https://github.com/jeromeetienne/threex.sample/blob/master/examples/experimentwater.html)\] :
+* [examples/experimentwater.html](http://jeromeetienne.github.io/threex.skymap/examples/experimentwater.html)
+\[[view source](https://github.com/jeromeetienne/threex.skymap/blob/master/examples/experimentwater.html)\] :
 It shows an experimentation for water
 
 
