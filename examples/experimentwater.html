@@ -3,14 +3,16 @@
 <script src='../threex.texturecube.js'></script>
 <script src='../threex.skymap.js'></script>
 <body style='margin: 0px; background-color: #bbbbbb; overflow: hidden;'><script>
-	var renderer	= new THREE.WebGLRenderer();
+	var renderer	= new THREE.WebGLRenderer({
+		antialias	: true
+	});
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.body.appendChild( renderer.domElement );
 
 	var onRenderFcts= [];
 	var scene	= new THREE.Scene();
 	var camera	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 1000);
-	camera.position.z = 3;
+	camera.position.z = 6;
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		mars								//
@@ -40,21 +42,18 @@
 	//		comment								//
 	//////////////////////////////////////////////////////////////////////////////////
 	
-;(function(){
-	for(var i = 0; i < 10; i++ ){
-		;(function(){
-			// var geometry	= new THREE.PlaneGeometry( 10, 10);
-			// var geometry	= new THREE.CubeGeometry( 1, 1, 1);
-			var geometry	= new THREE.CylinderGeometry(0.5, 0.5, 3)
-			var material	= new THREE.MeshPhongMaterial();
+	;(function(){
+		var geometry	= new THREE.CylinderGeometry(0.5, 0.5, 10)
+		var material	= new THREE.MeshPhongMaterial();
+		material.map	= THREE.ImageUtils.loadTexture('images/water.jpg')
+		material.color.set('hotpink')
+		for(var i = 0; i < 30; i++ ){
 			var mesh	= new THREE.Mesh( geometry, material );
-			mesh.position.x	= (Math.random()-0.5)*8
-			mesh.position.z	= (Math.random()-0.5)*5 - 3
-			// mesh.lookAt(new THREE.Vector3(0,-1,0))
+			mesh.position.x	= (Math.random()-0.5)*20
+			mesh.position.z	= (Math.random()-0.5)*10 - 3
 			scene.add( mesh );
-		})()
-	}
-})()
+		}
+	})()
 
 	//////////////////////////////////////////////////////////////////////////////////
 	//		add an object and make it move					//
@@ -67,13 +66,33 @@
 	material.map		= THREE.ImageUtils.loadTexture('images/water.jpg')
 	material.color.set('cyan')
 	material.envMap		= THREEx.createTextureCube('mars')
+	material.reflectivity	= 0.4
 	material.transparent	= true
 	material.depthWrite	= false
-	material.opacity	= 0.5
+	material.opacity	= 0.9
 	material.side		= THREE.DoubleSide
 	var mesh	= new THREE.Mesh( geometry, material );
 	mesh.lookAt(new THREE.Vector3(0,1,0))
 	scene.add( mesh );
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	//		scroll texture							//
+	//////////////////////////////////////////////////////////////////////////////////
+	
+	material.map.wrapT	= THREE.RepeatWrapping;
+	material.map.wrapS	= THREE.RepeatWrapping;
+	onRenderFcts.push(function(delta, now){
+		var texture	= material.map
+		// normalize the offset
+		texture.offset.x	= (texture.offset.x + 0.05 * delta)%1;
+		texture.offset.y	= (texture.offset.y + 0.03 * delta)%1;
+		// update the texture
+		texture.needsUpdate	= true;
+	})
+	
+	//////////////////////////////////////////////////////////////////////////////////
+	//		put waves 							//
+	//////////////////////////////////////////////////////////////////////////////////
 	
 	onRenderFcts.push(function(delta, now){
 		var verticesPerX	= 25 + 1
@@ -81,8 +100,8 @@
 		geometry.vertices.forEach(function(vertex, vertexIdx){
 			var x	= vertexIdx % verticesPerX
 			var y	= Math.floor(vertexIdx / verticesPerX)
-			var angle	= angleOffset + x/10 + y/3.05;
-			vertex.z	= Math.cos(angle) * 0.5
+			var angle	= angleOffset + x/1 + y/1.05;
+			vertex.z	= Math.cos(angle) * 0.2
 		})
 		geometry.verticesNeedUpdate = true
 		
