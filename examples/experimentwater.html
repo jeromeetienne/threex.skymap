@@ -132,7 +132,7 @@
 	material.bumpScale	= 0.005
 
 	onRenderFcts.push(function(delta, now){
-		// normalize the offset
+		// normalize the offset 
 		texture.offset.y	+= (perlin.noise(10*now, 0, 0)+0.5) * 200.0 * delta;
 		// texture.offset.x	+= perlin.noise(0.5*now, 0, 0) * 10.0 * delta;
 		// texture.offset.y	= (perlin.noise(0.1*now, 0, 0) + 0.5) * 1 * delta % 1;
