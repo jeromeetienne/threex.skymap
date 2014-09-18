@@ -9,12 +9,12 @@ Show, Don't Tell
 * [examples/basic.html](http://jeromeetienne.github.io/threex.skymap/examples/basic.html)
 \[[view source](https://github.com/jeromeetienne/threex.skymap/blob/master/examples/basic.html)\] :
 It shows a basic usage with reflection and skybox.
+* [examples/cubetexturehcross.html](http://jeromeetienne.github.io/threex.skymap/examples/cubetexturehcross.html)
+\[[view source](https://github.com/jeromeetienne/threex.skymap/blob/master/examples/cubetexturehcross.html)\] :
+It shows a simple usage of threex.cubetexturehcross.js.
 * [examples/requirejs.html](http://jeromeetienne.github.io/threex.skymap/examples/requirejs.html)
 \[[view source](https://github.com/jeromeetienne/threex.skymap/blob/master/examples/requirejs.html)\] :
 It shows a basic usage with reflection and skybox thru require.js
-* [examples/experimentwater.html](http://jeromeetienne.github.io/threex.skymap/examples/experimentwater.html)
-\[[view source](https://github.com/jeromeetienne/threex.skymap/blob/master/examples/experimentwater.html)\] :
-It shows an experimentation for water
 
 
 How To Install It
