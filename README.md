@@ -25,6 +25,7 @@ You can install it manually. Just do
 ```html
 <script src='threex.skymap.js'></script>
 <script src='threex.texturecube.js'></script>
+<script src='threex.cubetexturehcross.js'></script>
 ```
 
 You can install with [bower](http://bower.io/).
@@ -70,4 +71,25 @@ var material	= new THREE.MeshPhongMaterial();
 material.envMap	= THREEx.createTextureCube('pisa')
 var mesh	= new THREE.Mesh( geometry, material );
 scene.add( mesh );
+```
+
+To handle split a cube texture in horizontal cross format into 6 pictures in three.js order, just do
+
+```
+var images  = THREEx.CubeTextureHCross.split(hcrossImage)
+```
+
+To build cube texture in horizontal cross format from 6 pictures in three.js order, just do
+
+```
+var canvas  = THREEx.CubeTextureHCross.build(images)
+```
+
+To load a cube texture in horizontal cross format and get a three.js texture, just do
+
+```
+THREEx.CubeTextureHCross.load(imageUrl, function(cubeMap){
+    // ... here use cubeMap
+    // ... maybe something like material.envMap  = cubeMap
+})
 ```
